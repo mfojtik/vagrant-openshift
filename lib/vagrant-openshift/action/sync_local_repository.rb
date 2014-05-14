@@ -49,6 +49,11 @@ module Vagrant
           begin
             temp_commit
 
+            unless File.directory?(Constants.build_dir + repo_name + '-bare')
+              puts "The #{repo_name}-bare does not exists, skipping sync."
+              return
+            end
+
             # Get the current branch
             branch = get_branch
 
