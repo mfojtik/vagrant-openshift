@@ -36,6 +36,12 @@ module Vagrant
             unless @options[:rename].nil?
               env[:aws_compute].tags.create(:resource_id => machine.identity, :key => 'Name', :value => @options[:rename])
               env[:machine].ui.info("Renamed to #{@options[:rename]}")
+
+            end
+            if @options[:forget]
+              aws_dir = File.join(".vagrant", "machines", env[:machine].name.to_s, "aws")
+              env[:machine].ui.info("Cleaning up the #{aws_dir} folder.")
+              FileUtils.rm_rf(aws_dir)
             end
             if @options[:stop]
               env[:machine].ui.info("Stopping instance #{machine.identity}")

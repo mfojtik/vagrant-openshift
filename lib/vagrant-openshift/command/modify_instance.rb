@@ -43,6 +43,10 @@ module Vagrant
               options[:stop] = true
             end
 
+            o.on("-c", "--clean", String, "Cleanup the instance from Vagrant") do |f|
+              options[:forget] = true
+            end
+
             o.on("-h", "--help", "Show this message") do |f|
               options[:help] = true
             end
